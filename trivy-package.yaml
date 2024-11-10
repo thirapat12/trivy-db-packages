@@ -1,0 +1,40 @@
+name: Update Trivy Cache
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Publish binaries
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup oras
+      uses: oras-project/setup-oras@v1
+
+    - name: Download and extract the vulnerability DB
+      run: |
+        mkdir -p .trivycache/db
+        oras pull ghcr.io/aquasecurity/trivy-db:2
+        tar -xzf db.tar.gz -C .trivycache/db metadata.json trivy.db
+        rm db.tar.gz
+
+    - name: Download and extract the Java DB
+      run: |
+        mkdir -p .trivycache/java-db
+        oras pull ghcr.io/aquasecurity/trivy-java-db:1
+        tar -xzf javadb.tar.gz -C .trivycache/java-db metadata.json trivy-java.db
+        rm javadb.tar.gz
+
+    - name: Upload binaries to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GH_TOKEN }}
+        file: .trivycache
+        tag: v1.0.0
+        overwrite: true
+        file_glob: true
