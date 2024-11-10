@@ -39,7 +39,7 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GH_TOKEN }}
-        file: ./trivycache/db.tar.gz
+        file: trivycache/db.tar.gz
         asset_name: db
         tag: v1.0.0
         overwrite: true
@@ -48,7 +48,7 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GH_TOKEN }}
-        file: ./trivycache/javadb.tar.gz
+        file: trivycache/javadb.tar.gz
         asset_name: javadb
         tag: v1.0.0
         overwrite: true
