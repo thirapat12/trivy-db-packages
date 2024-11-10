@@ -34,8 +34,6 @@ jobs:
       run: |
         ls -la
         ls -la trivycache
-        du -sh trivycache/db.tar.gz
-        du -sh trivycache/javadb.tar.gz
 
     - name: Upload binaries to release trivy-db
       uses: svenstaro/upload-release-action@v2
