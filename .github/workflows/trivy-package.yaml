@@ -18,14 +18,14 @@ jobs:
 
     - name: Download and extract the vulnerability DB
       run: |
-        mkdir -p trivycache/db
+        mkdir -p trivycache
         oras pull ghcr.io/aquasecurity/trivy-db:2
         # tar -xzf db.tar.gz -C trivycache/db metadata.json trivy.db
         # rm db.tar.gz
 
     - name: Download and extract the Java DB
       run: |
-        mkdir -p trivycache/java-db
+        mkdir -p trivycache
         oras pull ghcr.io/aquasecurity/trivy-java-db:1
         # tar -xzf javadb.tar.gz -C trivycache/java-db metadata.json trivy-java.db
         # rm javadb.tar.gz
@@ -41,8 +41,8 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GH_TOKEN }}
-        file: trivycache/db/db.tar.gz
-        asset_name: db.tar.gz
+        file: ./trivycache/db.tar.gz
+        asset_name: db
         tag: v1.0.0
         overwrite: true
 
@@ -50,7 +50,7 @@ jobs:
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GH_TOKEN }}
-        file: trivycache/java-db/javadb.tar.gz
-        asset_name: javadb.tar.gz
+        file: ./trivycache/javadb.tar.gz
+        asset_name: javadb
         tag: v1.0.0
         overwrite: true
