@@ -30,6 +30,12 @@ jobs:
         tar -xzf javadb.tar.gz -C .trivycache/java-db metadata.json trivy-java.db
         rm javadb.tar.gz
 
+    - name: List the files
+      run: |
+        ls -la
+        ls -la .trivycache
+    
+
     - name: Upload binaries to release
       uses: svenstaro/upload-release-action@v2
       with:
