@@ -35,7 +35,8 @@ jobs:
     - name: List the files
       run: |
         ls -la
-        ls -la trivycache
+        ls -la db
+        ls -la java-db
 
     - name: Upload binaries to release trivy-db
       uses: svenstaro/upload-release-action@v2
