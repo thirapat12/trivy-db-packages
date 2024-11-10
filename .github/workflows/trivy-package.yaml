@@ -34,13 +34,14 @@ jobs:
       run: |
         ls -la
         ls -la trivycache
-    
+        du -sh trivycache/db
+        du -sh trivycache/java-db
 
     - name: Upload binaries to release
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GH_TOKEN }}
-        file: trivycache
+        file: trivycache/*
         tag: v1.0.0
         overwrite: true
         file_glob: true
