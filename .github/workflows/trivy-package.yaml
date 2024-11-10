@@ -44,6 +44,7 @@ jobs:
         repo_token: ${{ secrets.GH_TOKEN }}
         file: ./db/db.tar.gz
         asset_name: db.tar.gz
+        body : "Vulnerability DB"
         tag: v1.0.0
         overwrite: true
 
@@ -53,5 +54,6 @@ jobs:
         repo_token: ${{ secrets.GH_TOKEN }}
         file: ./java-db/javadb.tar.gz
         asset_name: javadb.tar.gz
+        body : "Java DB"
         tag: v1.0.0
         overwrite: true
