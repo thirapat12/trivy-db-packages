@@ -20,15 +20,15 @@ jobs:
       run: |
         mkdir -p trivycache/db
         oras pull ghcr.io/aquasecurity/trivy-db:2
-        tar -xzf db.tar.gz -C trivycache/db metadata.json trivy.db
-        rm db.tar.gz
+        # tar -xzf db.tar.gz -C trivycache/db metadata.json trivy.db
+        # rm db.tar.gz
 
     - name: Download and extract the Java DB
       run: |
         mkdir -p trivycache/java-db
         oras pull ghcr.io/aquasecurity/trivy-java-db:1
-        tar -xzf javadb.tar.gz -C trivycache/java-db metadata.json trivy-java.db
-        rm javadb.tar.gz
+        # tar -xzf javadb.tar.gz -C trivycache/java-db metadata.json trivy-java.db
+        # rm javadb.tar.gz
 
     - name: List the files
       run: |
@@ -37,11 +37,20 @@ jobs:
         du -sh trivycache/db
         du -sh trivycache/java-db
 
-    - name: Upload binaries to release
+    - name: Upload binaries to release trivy-db
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GH_TOKEN }}
-        file: trivycache/*
+        file: trivycache/db/db.tar.gz
+        asset_name: db.tar.gz
         tag: v1.0.0
         overwrite: true
-        file_glob: true
+
+    - name: Upload binaries to release trivy-java-db
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GH_TOKEN }}
+        file: trivycache/java-db/javadb.tar.gz
+        asset_name: javadb.tar.gz
+        tag: v1.0.0
+        overwrite: true
