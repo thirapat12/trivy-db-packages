@@ -26,7 +26,7 @@ jobs:
 
     - name: Download and extract the Java DB
       run: |
-        mkdir -p triycache/java-db
+        mkdir -p trivycache/java-db
         # cd java-db
         oras pull ghcr.io/aquasecurity/trivy-java-db:1
         tar -xzf javadb.tar.gz -C trivycache/java-db metadata.json trivy-java.db
@@ -34,15 +34,13 @@ jobs:
 
     - name: List the files
       run: |
-        ls -la
-        # ls -la db
-        # ls -la java-db
+        ls -la trivycache
 
     - name: Upload binaries to release trivy-db
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GH_TOKEN }}
-        file: triycache/*
+        file: ./trivycache/*
         asset_name: trivy-cache.tar.gz
         body : "Vulnerability DB & Java DB"
         tag: v1.0.0
